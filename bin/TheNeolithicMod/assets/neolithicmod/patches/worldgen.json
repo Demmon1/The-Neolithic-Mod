@@ -18,40 +18,6 @@
 	{ file: "game:worldgen/blockpatches", op: "add", path: "/patches/-", value:
 	
         {
-			comment: "Large patches of giant reed",
-			blockCodes: ["giantreed-arundo-water-normal"],
-			minTemp: 3,
-			maxTemp: 23,
-			minRain: 0.4,
-			maxRain: 1,
-			quantity: { avg: 25, var: 15 },
-			offsetX: { avg: 0, var: 12 },
-			offsetZ: { avg: 0, var: 12 },
-			chance: 0.5,
-			placement: "NearWater"
-		}
-	
-	},
-	
-	{ file: "game:worldgen/blockpatches", op: "add", path: "/patches/-", value:
-	
-        {
-			comment: "Small patches of giant reed",
-			blockCodes: ["giantreed-arundo-water-normal"],
-			minTemp: 3,
-			maxTemp: 23,
-			minRain: 0.4,
-			maxRain: 1,
-			quantity: { avg: 5, var: 5 },
-			chance: 0.5,
-			placement: "NearWater"
-		}
-		
-			
-	},
-	{ file: "game:worldgen/blockpatches", op: "add", path: "/patches/-", value:
-	
-        {
 			comment: "Large patches of sisal",
 			blockCodes: ["crop-sisal-3","crop-sisal-4", "crop-sisal-5", "crop-sisal-6" ],
 			minTemp: 10,

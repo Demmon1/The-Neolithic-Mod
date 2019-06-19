@@ -1,5 +1,6 @@
 {
-	ingredientPattern: "RTR	BRB	BRB",
+	enabled: false,
+  ingredientPattern: "RTR	BRB	BRB",
 	ingredients: {
 		"T": { type: "item", code: "neolithicmod:sisal-twine" },
 		"R": { type: "item", code: "game:reeds" },

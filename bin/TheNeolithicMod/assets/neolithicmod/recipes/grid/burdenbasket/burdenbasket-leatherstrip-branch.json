@@ -1,5 +1,6 @@
 {
-	ingredientPattern: "RTR	SRS	SRS",
+	enabled: false,
+  ingredientPattern: "RTR	SRS	SRS",
 	ingredients: {
 		"T": { type: "item", code: "neolithicmod:animal-leatherstrips" },
 		"R": { type: "item", code: "game:reeds" },

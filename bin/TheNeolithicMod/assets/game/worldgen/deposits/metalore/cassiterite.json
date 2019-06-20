@@ -34,7 +34,7 @@
 					"rock-slate": ["poor", "medium"]
 				}
 			},
-			radius: { dist: "gaussian", avg: 12, var: 3 },
+			radius: { dist: "gaussian", avg: 5, var: 3 },
 			yPosRel: {dist: "uniform", avg: 0.3, var: 0.3 },
 			thickness: { dist: "uniform", avg: 1, var: 0 }
 		}
@@ -59,7 +59,7 @@
 					"rock-slate": ["poor", "medium"]
 				}
 			},
-			radius: { dist: "gaussian", avg: 20, var: 3 },
+			radius: { dist: "gaussian", avg: 12, var: 3 },
 			yPosRel: {dist: "uniform", avg: 0.3, var: 0.3 },
 			thickness: { dist: "uniform", avg: 1, var: 0 },
 		}

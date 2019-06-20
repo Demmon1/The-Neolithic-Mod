@@ -21,7 +21,7 @@
 				}
 			},
 			surfaceBlock: {code: "looseores-galena-{rock}" },
-			radius: { dist: "gaussian", avg: 12, var: 4 },
+			radius: { dist: "gaussian", avg: 4, var: 4 },
 			yPosRel: {dist: "uniform", avg: 0.5, var: 0.5 },
 			thickness: { dist: "uniform", avg: 1, var: 0 }
 		},
@@ -35,7 +35,7 @@
 				attributes: {
 					randomTries: { avg: 10 },
 					placeblock: { code: "ore-*-galena_nativesilver-{rock}", name: "grade", allowedVariants: ["poor", "medium", "rich", "bountiful"] },
-					radius: { dist: "gaussian", avg: 12, var: 2 },
+					radius: { dist: "gaussian", avg: 2, var: 2 },
 					thickness: { dist: "invexp", avg: 1.2, var: 3 }
 				}
 			}

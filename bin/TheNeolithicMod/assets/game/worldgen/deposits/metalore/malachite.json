@@ -17,7 +17,7 @@
 					"rock-whitemarble": ["poor", "medium", "rich"]
 				}
 			},
-			radius: { dist: "uniform", avg: 12, var: 3 },
+			radius: { dist: "uniform", avg: 6, var: 3 },
 			yPosRel: {dist: "uniform", avg: 0.5, var: 0.4 },
 			thickness: { dist: "stronginvexp", avg: 1, var: 2 }
 		}

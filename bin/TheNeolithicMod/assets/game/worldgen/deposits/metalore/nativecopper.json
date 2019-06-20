@@ -26,7 +26,7 @@
 			},
 			surfaceBlock: { code: "looseores-nativecopper-{rock}" },
 			surfaceBlockChance: 0.25,
-			radius: { dist: "uniform", avg: 12, var: 2 },
+			radius: { dist: "uniform", avg: 5.5, var: 2 },
 			yPosRel: {dist: "uniform", avg: 0.965, var: 0.03 },
 			thickness: { dist: "stronginvexp", avg: 1, var: 1 },
 		}
@@ -58,7 +58,7 @@
 					"rock-slate": ["poor", "medium", "rich"]
 				}
 			},
-			radius: { dist: "uniform", avg: 12, var: 3 },
+			radius: { dist: "uniform", avg: 6, var: 3 },
 			yPosRel: {dist: "uniform", avg: 0.3, var: 0.3 },
 			thickness: { dist: "stronginvexp", avg: 1, var: 2 }
 		}

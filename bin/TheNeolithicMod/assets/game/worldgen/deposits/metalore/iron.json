@@ -16,7 +16,7 @@
 					"rock-chert": ["poor", "medium", "rich", "bountiful"],
 				}
 			},
-			radius: { dist: "invexp", avg: 12, var: 10 },
+			radius: { dist: "invexp", avg: 3, var: 10 },
 			yPosRel: {dist: "uniform", avg: 0.45, var: 0.4 },
 			thickness: { dist: "uniform", avg: 1, var: 0 }
 		}
@@ -39,7 +39,7 @@
 					"rock-phyllite": ["poor", "medium"]
 				}
 			},
-			radius: { dist: "invexp", avg: 12, var: 10 },
+			radius: { dist: "invexp", avg: 3, var: 10 },
 			yPosRel: {dist: "uniform", avg: 0.45, var: 0.4 },
 			thickness: { dist: "uniform", avg: 1, var: 0 }
 		}
@@ -63,7 +63,7 @@
 					"rock-slate": ["poor", "medium"],
 				}
 			},
-			radius: { dist: "invexp", avg: 12, var: 10 },
+			radius: { dist: "invexp", avg: 3, var: 10 },
 			yPosRel: {dist: "uniform", avg: 0.45, var: 0.4 },
 			thickness: { dist: "uniform", avg: 1, var: 0 }
 		}

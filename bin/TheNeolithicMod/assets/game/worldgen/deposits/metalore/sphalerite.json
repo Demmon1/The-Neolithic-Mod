@@ -26,7 +26,7 @@
 					"rock-slate": ["poor", "medium", "rich", "bountiful"]
 				}
 			},
-			radius: { dist: "gaussian", avg: 12, var: 3 },
+			radius: { dist: "gaussian", avg: 4, var: 3 },
 			yPosRel: {dist: "uniform", avg: 0.45, var: 0.5 },
 			thickness: { dist: "uniform", avg: 1, var: 0 }
 		}

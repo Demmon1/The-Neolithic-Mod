@@ -37,11 +37,6 @@
 	replaceable: 900,
 	resistance: 0.5,
 	lightAbsorption: 0,
-	guiTransform: {
-		rotation: { x: -82, y: -30, z: 0 },
-		origin: { x: 0.4, y: 0, z: 0.4 },
-		scale: 2.09
-	},
 	sidesolid: {
 		all: false
 	},
@@ -54,5 +49,27 @@
 		"break": "block/planks",
 		"walk": "walk/wood"
 	},
-	materialDensity: 600,
+  materialDensity: 600,
+	guiTransform: {
+		translation: { x: 4, y: 3, z: 0 },
+		rotation: { x: -82, y: -30, z: 0 },
+		origin: { x: 0.4, y: 0, z: 0.4 },
+		scale: 2.09
+	},
+	fpHandTransform: {
+		translation: { x: -1, y: 0.5, z: 0.5 },
+		rotation: { x: -54, y: -17, z: 118 },
+		scale: 4.5
+	},
+	tpHandTransform: {
+		translation: { x: -0.8, y: -0.6, z: -1.15 },
+		rotation: { x: -90, y: 0, z: 0 },
+		scale: 0.7
+	},
+	groundTransform: {
+		translation: { x: 0, y: 0, z: 0 },
+		rotation: { x: 0, y: -45, z: 0 },
+		origin: { x: 0.5, y: 0, z: 0.5 },
+		scale: 4.5
+	}
 }

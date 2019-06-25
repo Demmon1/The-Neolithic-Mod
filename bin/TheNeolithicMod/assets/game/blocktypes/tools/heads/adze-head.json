@@ -83,61 +83,24 @@
 	},
 	materialDensity: 600,
 	fpHandTransform: {
-		translation: {
-			x: 0.4,
-			y: -0.4,
-			z: 0
-		},
-		rotation: {
-			x: 25,
-			y: 0,
-			z: 86
-		},
-		scale: 2.5
+		translation: { x: 0.1, y: -0.6, z: 0 },
+		rotation: { x: 56, y: -32, z: 90 },
+		scale: 4.5
 	},
 	guiTransform: {
-		rotate: false,
-		translation: {
-			x: 3,
-			y: 0,
-			z: 120
-		},
-		rotation: {
-			x: -52,
-			y: -131,
-			z: -180
-		},
-		origin: {
-			x: 0.55,
-			y: 1.1,
-			z: 0.1
-		},
+		translation: { x: 3, y: 0, z: 120 },
+		rotation: { x: -52, y: -131, z: -180 },
+		origin: { x: 0.55, y: 1.1, z: 0.1 },
 		scale: 3.4
 	},
 	groundTransform: {
-		translation: {
-			x: 0.046875,
-			y: 0,
-			z: 0
-		},
-		rotation: {
-			x: 0,
-			y: 0,
-			z: 0
-		},
-		scale: 2.5
+		translation: { x: 0.0468, y: -0.43, z: 0 },
+		rotation: { x: 0, y: 0, z: 0 },
+		origin: { x: 0.5, y: 0, z: 0.5 },
+		scale: 4.5
 	},
 	tpHandTransform: {
-		translation: {
-			x: -0.3,
-			y: -0.8,
-			z: -0.5
-		},
-		rotation: {
-			x: 90,
-			y: -49,
-			z: 0
-		},
+		translation: { x: -0.5, y: -0.85, z: -0.5 },
+		rotation: { x: 90, y: -90, z: 0 },
 		scale: 1
 	}
-}

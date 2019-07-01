@@ -21,8 +21,8 @@
 			"normal-labeled-maple": 32,
 			"normal-labeled-oak": 32,
 			"normal-labeled-pine": 32,
-			"normal-labeled-bamboo-green": 16,
-			"normal-labeled-bamboo-brown": 16,
+			"normal-labeled-bamboo-green": 24,
+			"normal-labeled-bamboo-brown": 24,
 		},
 		dialogTitleLangCode: {
 			"normal-labeled-*": "chestcontents",

@@ -21,8 +21,8 @@
 			"normal-generic-maple": 32,
 			"normal-generic-oak": 32,
 			"normal-generic-pine": 32,
-			"normal-generic-bamboo-green": 16,
-			"normal-generic-bamboo-brown": 16,
+			"normal-generic-bamboo-green": 24,
+			"normal-generic-bamboo-brown": 24,
 			
 		},
 		dialogTitleLangCode: {

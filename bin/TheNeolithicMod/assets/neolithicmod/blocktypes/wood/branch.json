@@ -51,42 +51,9 @@
 		"place": "game:block/planks",
 		"walk": "game:walk/wood"
 	},
-	dropsBYType: 
-	{
-		"branch-very-thin-{style}-{wood}-*":
-		[ 
-			{
-				type: "block",
-				code: "branch-very-thin-{style}-{wood}-ud",
-				quantity: { avg: 1 }  
-			},
-		],
-		"branch-thin-{style}-{wood}-*":
-		[ 
-			{
-				type: "block",
-				code: "branch-thin-{style}-{wood}-ud",
-				quantity: { avg: 1 }  
-			},
-		],
-		
-		"branch-medium-{style}-{wood}-*":
-		[ 
-			{
-				type: "block",
-				code: "branch-medium-{style}-{wood}-ud",
-				quantity: { avg: 1 }  
-			},
-		],
-		"branch-thick-{style}-{wood}-*":
-		[ 
-			{
-				type: "block",
-				code: "branch-thick-{style}-{wood}-ud",
-				quantity: { avg: 1 }  
-			},
-		],
-	},
+  drops: [
+    { "code": "branch-{size}-{wood}-{style}-ud" }
+  ],
 	collisionboxbytype: {
 		"branch-very-thin-*-ud": { x1: 0.45, y1: 0, z1: 0.45, x2: 0.55, y2: 1, z2: 0.55 },
 		"branch-thin-*-ud": { x1: 0.35, y1: 0, z1: 0.35, x2: 0.65, y2: 1, z2: 0.65 },

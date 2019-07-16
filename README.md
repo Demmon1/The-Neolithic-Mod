@@ -9,3 +9,7 @@ Complete list of tweaks:
 -Removed crafting recipe for "burden baskets".
 
 -Primitive Fence Midsection recipe now uses "Very Thin" branches.
+
+-Increase inventory size of bamboo chests to 24 (was 16).
+
+-Restore vanilla ore deposit distribution.

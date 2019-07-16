@@ -23,55 +23,111 @@ namespace TheNeolithicMod
         }
     }
 
+    class PowerNetwork
+    {
+        public EnumPowerType PowerType { get; set; } = EnumPowerType.Mechanical;
+        public List<PowerDevice> Connected { get; set; } = new List<PowerDevice>();
+
+        public PowerNetwork(EnumPowerType powerType, List<PowerDevice> connected)
+        {
+            PowerType = powerType;
+            Connected = connected;
+        }
+    }
+
     class PowerDevice
     {
         public double StoredPower { get; set; } = 0;
-        public double MaxPower { get; set; } = 50;
-        public double PowerRate { get; set; } = 0; //{ get => PowerAmount / PowerResistance; set => PowerResistance = value; }
-        public double PowerResistance { get; set; } = 0; //{ get => PowerAmount / PowerRate; set => PowerResistance = value; }
-        public double PowerAmount { get; set; } = 0; //{ get => PowerRate * PowerResistance; set => PowerAmount = value; }
-        public double Power { get => PowerRate * PowerAmount; }
-        public EnumPowerType PowerType = 0;
-        public ItemStack[] InputInventory { get; set; }
-        public ItemStack[] ProcessingInventory { get; set; }
-        public ItemStack[] OutputInventory { get; set; }
+        public double PowerDelta { get; set; } = 0;
+        public double StorageCap { get; set; } = 256.0;
+        public EnumPowerType PowerType { get; set; } = EnumPowerType.Mechanical;
+        public WorkItem ContainedWorkItem { get; set; } = null;
+
+        public PowerDevice(EnumPowerType powerType = EnumPowerType.Mechanical, WorkItem containedWorkItem = null, double storedPower = 0, double storagecap = 256.0, double powerdelta = 0)
+        {
+            StoredPower = storedPower;
+            PowerType = powerType;
+            ContainedWorkItem = containedWorkItem;
+            StorageCap = storagecap;
+            PowerDelta = powerdelta;
+        }
+
+        public PowerDevice Copy()
+        {
+            WorkItem tmp = ContainedWorkItem != null ? ContainedWorkItem : new WorkItem(new List<ItemStack>(), new List<ItemStack>(), 256, 256);
+            PowerDevice copy = new PowerDevice(PowerType, tmp.Copy(), StoredPower, StorageCap, PowerDelta);
+            return copy;
+        }
+        
+    }
+
+    class WorkItem
+    {
+        public List<ItemStack> Required { get; set; } = new List<ItemStack>();
+        public List<ItemStack> Output { get; set; } = new List<ItemStack>();
+        public int WorkRequired { get; set; } = 256;
+        public int WorkLeft { get; set; } = 256;
+
+        public WorkItem(List<ItemStack> required, List<ItemStack> output, int workRequired, int workLeft)
+        {
+            Required = required;
+            Output = output;
+            WorkRequired = workRequired;
+            WorkLeft = workLeft;
+        }
+
+        public WorkItem Copy()
+        {
+            WorkItem copy = new WorkItem(Required, Output, WorkRequired, WorkLeft);
+            return copy;
+        }
     }
 
     class BlockEntityMachine : BlockEntityAnimatable
     {
-        public PowerDevice Device { get; private set; }
-        public string Key { get => "PowerDevice: " + pos; }
-        InventoryGeneric input;
-        InventoryGeneric processing;
-        InventoryGeneric output;
-
-        byte[] Serialized() {
-            return SerializerUtil.Serialize(JsonConvert.SerializeObject(Device));
-        }
-        
+        public PowerDevice device;
+        Block block;
         public override void Initialize(ICoreAPI api)
         {
             base.Initialize(api);
-            Block block = api.World.BlockAccessor.GetBlock(pos);
-
-            if (api.World.Side.IsServer())
+            block = pos.GetBlock(api);
+            if (device == null)
             {
-                ICoreServerAPI sapi = (ICoreServerAPI)api;
-                if (sapi.WorldManager.SaveGame.GetData(Key) != null)
+                device = new PowerDevice(
+                    (EnumPowerType)block.Attributes["PowerType"].AsInt(), null, 
+                    block.Attributes["PowerStored"].AsDouble(), 
+                    block.Attributes["PowerCap"].AsDouble(256),
+                    block.Attributes["PowerDelta"].AsDouble());
+            }
+            Update();
+            RegisterGameTickListener(OnGameTick, 30);
+        }
+
+        public void Update()
+        {
+            device.PowerType = (EnumPowerType)block.Attributes["PowerType"].AsInt();
+            device.StorageCap = block.Attributes["PowerCap"].AsDouble(256);
+            device.PowerDelta = block.Attributes["PowerDelta"].AsDouble();
+        }
+
+        public void OnGameTick(float dt)
+        {
+            if (device.StoredPower >= 0)
+            {
+                if (device.StoredPower < device.StorageCap)
                 {
-                    Device = JsonConvert.DeserializeObject<PowerDevice>(SerializerUtil.Deserialize<string>(sapi.WorldManager.SaveGame.GetData(Key)));
+                    device.StoredPower += device.PowerDelta;
                 }
                 else
                 {
-                    Device = new PowerDevice();
+                    device.StoredPower = device.StorageCap;
                 }
-                if (Device.InputInventory == null)
-                {
-                    UpdateInv(sapi, block);
-                }
-
-                sapi.WorldManager.SaveGame.StoreData(Key, Serialized());
             }
+            else
+            {
+                device.StoredPower = 0;
+            }
+
         }
 
         public override void OnBlockRemoved()
@@ -79,36 +135,22 @@ namespace TheNeolithicMod
             base.OnBlockRemoved();
         }
 
-        public void UpdateForAllPlayers(ICoreServerAPI sapi)
+        public override void FromTreeAtributes(ITreeAttribute tree, IWorldAccessor worldAccessForResolve)
         {
-            foreach (var val in api.World.AllPlayers)
+            if (tree.GetString("powerdevice") != null)
             {
-                ITreeAttribute attribs = val.Entity.WatchedAttributes.GetOrAddTreeAttribute("Machines");
-                attribs.SetString(Key, JsonConvert.SerializeObject(Device));
-                val.Entity.WatchedAttributes.MarkPathDirty("Machines");
+                device = JsonConvert.DeserializeObject<PowerDevice>(tree.GetString("powerdevice"));
             }
-            sapi.WorldManager.SaveGame.StoreData(Key, Serialized());
+            base.FromTreeAtributes(tree, worldAccessForResolve);
         }
 
-        public void UpdateInv(ICoreServerAPI sapi, Block block)
+        public override void ToTreeAttributes(ITreeAttribute tree)
         {
-            input = new InventoryGeneric(block.Attributes["InputSlots"].AsInt(1), null, null, null);
-            processing = new InventoryGeneric(block.Attributes["ProcessingSlots"].AsInt(1), null, null, null);
-            output = new InventoryGeneric(block.Attributes["OutputSlots"].AsInt(1), null, null, null);
-            Device.InputInventory = ToStackList(input);
-            Device.ProcessingInventory = ToStackList(processing);
-            Device.OutputInventory = ToStackList(output);
-            sapi.WorldManager.SaveGame.StoreData(Key, Serialized());
-        }
-
-        public ItemStack[] ToStackList(InventoryGeneric inv)
-        {
-            List<ItemStack> items = new List<ItemStack>();
-            foreach (var val in inv)
+            if (device != null)
             {
-                items.Add(val.Itemstack);
+                tree.SetString("powerdevice", JsonConvert.SerializeObject(device));
             }
-            return items.ToArray();
+            base.ToTreeAttributes(tree);
         }
     }
 
@@ -121,34 +163,18 @@ namespace TheNeolithicMod
 
         public override void OnBlockRemoved(IWorldAccessor world, BlockPos pos)
         {
-            if (world.Side.IsServer())
-            {
-                ICoreServerAPI sapi = (ICoreServerAPI)api;
-                BlockEntityMachine machine = world.BlockAccessor.GetBlockEntity(pos) as BlockEntityMachine;
-                if (machine != null)
-                {
-                    sapi.WorldManager.SaveGame.StoreData(machine.Key, null);
-
-                    foreach (var val in api.World.AllPlayers)
-                    {
-                        ITreeAttribute attribs = val.Entity.WatchedAttributes.GetOrAddTreeAttribute("Machines");
-                        attribs.SetString(machine.Key, "");
-                    }
-                }
-            }
             base.OnBlockRemoved(world, pos);
         }
 
         public override string GetPlacedBlockInfo(IWorldAccessor world, BlockPos pos, IPlayer forPlayer)
         {
-            ITreeAttribute attribs = forPlayer.Entity.WatchedAttributes.GetOrAddTreeAttribute("Machines");
-            BlockEntityMachine machine = world.BlockAccessor.GetBlockEntity(pos) as BlockEntityMachine;
-            if (machine == null) return base.GetPlacedBlockInfo(world, pos, forPlayer) + "Power: " + 0.00f;
-
-            PowerDevice device = JsonConvert.DeserializeObject<PowerDevice>(attribs.GetString(machine.Key));
-
-            float power = (float)Math.Round(device.StoredPower, 2);
-            return base.GetPlacedBlockInfo(world, pos, forPlayer) + "Power: " + power;
+            string a = "";
+            BlockEntityMachine be = world.BlockAccessor.GetBlockEntity(pos) as BlockEntityMachine;
+            if (be != null)
+            {
+                a += "StoredPower: " + be.device.StoredPower;
+            }
+            return base.GetPlacedBlockInfo(world, pos, forPlayer) + a;
         }
     }
 

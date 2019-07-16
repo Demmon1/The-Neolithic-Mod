@@ -8,10 +8,12 @@
 	},
 	heldTpIdleAnimation: "holdbothhands",
 	attributesByType: {
-		"*": { 
-			"InputSlots": 1,
-			"OutputSlots": 1,
-		},
+		"*": {
+			"PowerType": 0,
+			"PowerStored": 0,
+			"PowerCap": 256,
+			"PowerDelta": 0
+		}, 
 	},
 	variantgroups: [
 	],

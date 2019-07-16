@@ -7,3 +7,5 @@ Complete list of tweaks:
 -Removed "Giant Arundo Reeds" from the world generation.
 
 -Removed crafting recipe for "burden baskets".
+
+-Primitive Fence Midsection recipe now uses "Very Thin" branches.

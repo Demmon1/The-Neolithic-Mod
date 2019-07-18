@@ -1,13 +1,11 @@
 {
-	code: "wolfpelt",
-	behaviors: [{name: "UnstableFalling"}, {name: "HorizontalOrientable", properties: {  dropBlockFace: "north" }} ],
+  code: "wolfpelt",
+  class: "BlockSign",
+	behaviors: [{name: "HorizontalOrientable", properties: {  dropBlockFace: "north" }} ],
 	variantgroups: [
 		{ code:"color", states: ["ashgrey", "black", "brown", "darkgrey", "gold","grey", "silver", "smokegrey", "white" ] },
 		{ code:"attachment", states: ["ground", "wall"] },
 		{ code:"side", loadFromProperties: "abstract/horizontalorientation" },
-	],
-	drops: [
-	{ type: "block", code: "wolfpelt-{color}-ground-north", quantity: { avg: 1 }}
 	],
 	drawtype: "json",
 	shapeByType: {

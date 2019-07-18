@@ -136,7 +136,7 @@
 			},
 			{
 				type: "block", 
-				code: "boarpelt-ground-east", 
+				code: "boarpelt-ground-north", 
 				quantity: { avg: 0.1, var: 0 } ,
 				tool:"knife",
 				lastDrop: true
@@ -195,7 +195,7 @@
 			},
 			{
 				type: "block", 
-				code: "boarpelt-ground-east", 
+				code: "boarpelt-ground-north", 
 				quantity: { avg: 0.1, var: 0 } ,
 				tool:"knife",
 				lastDrop: true

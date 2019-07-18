@@ -103,7 +103,7 @@
 			},
 			{
 				type: "block",
-				code: "harepelt-{color}-ground-east",
+				code: "harepelt-{color}-ground-north",
 				quantity: { avg: 0.1, var: 0 },
 				tool: "knife",
 				lastDrop: true

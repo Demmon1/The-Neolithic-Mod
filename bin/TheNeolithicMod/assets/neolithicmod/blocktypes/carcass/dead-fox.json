@@ -105,7 +105,7 @@
 			},
 			{
 				type: "block",
-				code: "foxpelt-red-ground-east",
+				code: "foxpelt-red-ground-north",
 				quantity: { avg: 0.1, var: 0 },
 				tool: "knife",
 				lastDrop: true
@@ -135,7 +135,7 @@
 			},
 			{
 				type: "block",
-				code: "foxpelt-red-ground-east",
+				code: "foxpelt-red-ground-north",
 				quantity: { avg: 0.1, var: 0 },
 				tool: "knife",
 				lastDrop: true
@@ -165,7 +165,7 @@
 			},
 			{
 				type: "block",
-				code: "foxpelt-snow-ground-east",
+				code: "foxpelt-snow-ground-north",
 				quantity: { avg: 0.1, var: 0 },
 				tool: "knife",
 				lastDrop: true
@@ -195,7 +195,7 @@
 			},
 			{
 				type: "block",
-				code: "foxpelt-snow-ground-east",
+				code: "foxpelt-snow-ground-north",
 				quantity: { avg: 0.1, var: 0 },
 				tool: "knife",
 				lastDrop: true

@@ -7,7 +7,6 @@
 		{ code:"attachment", states: ["ground", "wall"] },
 		{ code:"side", loadFromProperties: "abstract/horizontalorientation" },
 	],
-	
 	drawtype: "json",
 	shapeByType: {
 		"*-ground-north": { base: "block/floormats/pelt", rotateY: 0 },
@@ -23,7 +22,6 @@
 	sideopaque: { all: false },
 	blockmaterial: "Cloth",
 	creativeinventory: { "general": ["boarpelt-ground-north"], "decorative": ["boarpelt-ground-north"], "neolithicdeco": ["boarpelt-ground-north"] },
-	drops: [ {type: "block",code: "boarpelt-ground-east",quantity: { avg: 1, var: 0 } } ],
 	replaceable: 4000,
 	resistance: 0.5,
 	lightAbsorption: 0,

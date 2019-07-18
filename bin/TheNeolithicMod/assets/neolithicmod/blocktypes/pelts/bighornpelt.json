@@ -2,12 +2,12 @@
 	code: "bighornpelt",
 	class: "BlockSign",
 	enabled: true,
-	behaviors: [{name: "HorizontalOrientable", properties: {  dropBlockFace: "east" }}],
+	behaviors: [{name: "HorizontalOrientable", properties: {  dropBlockFace: "north" }}],
 	variantgroups: [
 		{ code:"attachment", states: ["ground", "wall"] },
 		{ code:"side", loadFromProperties: "abstract/horizontalorientation" },
 	],
-	drawtype: "json",
+  drawtype: "json",
 	shapeByType: {
 		"*-ground-north": { base: "block/floormats/pelt", rotateY: 0 },
 		"*-ground-east": { base: "block/floormats/pelt", rotateY: 270 },
@@ -21,7 +21,7 @@
 	sidesolid: { all: false },
 	sideopaque: { all: false },
 	blockmaterial: "Cloth",
-	creativeinventory: { "general": ["bighornpelt-ground-east"], "decorative": ["bighornpelt-ground-east"], "neolithicdeco":["bighornpelt-ground-east"] },
+	creativeinventory: { "general": ["bighornpelt-ground-north"], "decorative": ["bighornpelt-ground-north"], "neolithicdeco":["bighornpelt-ground-north"] },
 	replaceable: 4000,
 	resistance: 0.5,
 	lightAbsorption: 0,

@@ -100,7 +100,7 @@
 			},
 			{
 				type: "block", 
-				code: "bighornpelt-ground-east", 
+				code: "bighornpelt-ground-north", 
 				quantity: { avg: 0.1, var: 0 } ,
 				tool:"knife",
 				lastDrop: true
@@ -124,7 +124,7 @@
 			},
 			{
 				type: "block", 
-				code: "bighornpelt-ground-east", 
+				code: "bighornpelt-ground-north", 
 				quantity: { avg: 0.1, var: 0 } ,
 				tool:"knife",
 				lastDrop: true

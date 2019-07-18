@@ -137,7 +137,7 @@
 			},
 			{
 				type: "block", 
-				code: "wolfpelt-{color}-ground-east", 
+				code: "wolfpelt-{color}-ground-north", 
 				quantity: { avg: 0.1, var: 0 } ,
 				tool:"knife",
 				lastDrop: true,
@@ -197,7 +197,7 @@
 			},
 			{
 				type: "block", 
-				code: "wolfpelt-{color}-ground-east", 
+				code: "wolfpelt-{color}-ground-north", 
 				quantity: { avg: 0.1, var: 0 } ,
 				tool:"knife",
 				lastDrop: true,

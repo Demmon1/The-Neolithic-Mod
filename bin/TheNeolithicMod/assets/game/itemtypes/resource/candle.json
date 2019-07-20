@@ -5,10 +5,14 @@
 	],
 	class: "ItemCandle",
 	attributes: {
-		blockfirstcodepart: "bunchocandles"
+		blockfirstcodepart: "bunchocandles",
+		isCandle: true,
 	},
 	maxstacksize: 32,
-	shape: { base: "block/wax/candle3" },
+	shapeByType: {
+		"candle-wax": { base: "block/wax/candle3" },
+		"candle-tallow": { base: "block/lightsources/tallow/tallowcandle3" },
+	},
 	creativeinventory: { "general": ["*"], "items": ["*"] },
 	combustibleProps: {
 		burnTemperature: 700,

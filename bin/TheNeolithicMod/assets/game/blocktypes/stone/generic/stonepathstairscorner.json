@@ -83,7 +83,6 @@
 		},
 	},
   resistance: 3,
-  walkspeedmultiplier: 1.25,
   sideopaque: {
     all: false
   },

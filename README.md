@@ -13,3 +13,5 @@ Complete list of tweaks:
 -Increase inventory size of bamboo chests to 24 (was 16).
 
 -Restore vanilla ore deposit distribution.
+
+-Restore vanilla stone path shape

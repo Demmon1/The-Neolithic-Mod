@@ -6,5 +6,5 @@
 	},
 	width: 1,
 	height: 2,
-	output: { type: "item", code: "game:firewood", quantity: 4  }
+	output: { type: "item", code: "game:firewood", quantity: 2  }
 }

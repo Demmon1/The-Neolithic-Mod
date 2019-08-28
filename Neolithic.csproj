@@ -1045,7 +1045,6 @@
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\recipes\grid\firewood-thick-branch.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\recipes\grid\firewood-thin-branch.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\recipes\grid\firewood-very-thin-branch.json" />
-    <None Include="bin\TheNeolithicMod\assets\neolithicmod\recipes\grid\firewood.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\recipes\grid\foxpelt-hide.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\recipes\grid\furniture\chair-bamboo.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\recipes\grid\furniture\chair.json" />

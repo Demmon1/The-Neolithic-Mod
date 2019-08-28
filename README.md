@@ -15,3 +15,5 @@ Complete list of tweaks:
 -Restore vanilla ore deposit distribution.
 
 -Restore vanilla stone path shape
+
+-Reduce firewood crafting recipes to "Vanilla-like" scale

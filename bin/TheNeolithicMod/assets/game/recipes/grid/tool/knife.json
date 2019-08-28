@@ -2,7 +2,7 @@
 	ingredientPattern: "T	S",
 	ingredients: {
 		"T": { type: "item", code: "knifeblade-*", allowedVariants: [ "copper", "tinbronze", "bismuthbronze", "blackbronze", "gold", "silver", "iron" ],  name: "metal" },
-		"S": {type: "block", code: "stick" },
+		"S": {type: "item", code: "stick" },
 	},
 	width: 1,
 	height: 2,

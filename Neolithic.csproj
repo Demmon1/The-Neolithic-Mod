@@ -441,6 +441,7 @@
     <None Include="bin\TheNeolithicMod\assets\game\recipes\grid\poultice.json" />
     <None Include="bin\TheNeolithicMod\assets\game\recipes\grid\stonebrickstairs.json" />
     <None Include="bin\TheNeolithicMod\assets\game\recipes\grid\stonepathstairs.json" />
+    <None Include="bin\TheNeolithicMod\assets\game\recipes\grid\tool\axe.json" />
     <None Include="bin\TheNeolithicMod\assets\game\recipes\grid\tool\bone-primitive-arrowhead.json" />
     <None Include="bin\TheNeolithicMod\assets\game\recipes\grid\tool\bone\leatherstrip\primitive-adze-leatherstrip.json" />
     <None Include="bin\TheNeolithicMod\assets\game\recipes\grid\tool\bone\leatherstrip\primitive-arrow-leatherstrip.json" />
@@ -472,6 +473,10 @@
     <None Include="bin\TheNeolithicMod\assets\game\recipes\grid\tool\bone\sisal\primitive-shovel-sisal.json" />
     <None Include="bin\TheNeolithicMod\assets\game\recipes\grid\tool\bone\sisal\primitive-sickle-sisal.json" />
     <None Include="bin\TheNeolithicMod\assets\game\recipes\grid\tool\bone\sisal\primitive-spear-sisal.json" />
+    <None Include="bin\TheNeolithicMod\assets\game\recipes\grid\tool\knife.json" />
+    <None Include="bin\TheNeolithicMod\assets\game\recipes\grid\tool\shovel.json" />
+    <None Include="bin\TheNeolithicMod\assets\game\recipes\grid\tool\spear.json" />
+    <None Include="bin\TheNeolithicMod\assets\game\recipes\grid\tool\sword.json" />
     <None Include="bin\TheNeolithicMod\assets\game\recipes\grid\tool\wood\leatherstrip\primitive-adze-andesite-wood-2.json" />
     <None Include="bin\TheNeolithicMod\assets\game\recipes\grid\tool\wood\leatherstrip\primitive-adze-basalt-wood-2.json" />
     <None Include="bin\TheNeolithicMod\assets\game\recipes\grid\tool\wood\leatherstrip\primitive-adze-flint-wood-2.json" />

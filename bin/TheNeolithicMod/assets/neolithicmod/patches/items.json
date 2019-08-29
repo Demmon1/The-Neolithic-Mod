@@ -1,4 +1,4 @@
 [
 	{ file: "game:itemtypes/resource/bamboostakes", op: "add", path: "/enabled",  value: false },
-	
+	{ file: "game:itemtypes/resource/fat", op: "replace", path: "/nutritionProps/saturation", value: 100 }
 ]

@@ -51,8 +51,13 @@
 	replaceable: 500,
 	resistance: 4.5,
 	sounds: {
-		"place": "game:block/planks",
-		"walk": "game:walk/wood"
+    "place": "game:block/planks",
+    "hit": "game:block/planks",
+    "break": "game:block/planks",
+    "walk": "game:walk/wood",
+    byTool: {
+      "Axe": { hit: "game:block/chop", break: "game:block/planks" }
+    }
 	},
 	dropsBYType: 
 	{

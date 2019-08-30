@@ -86,7 +86,8 @@
 	sounds: {
 		break: "block/plant",
 		place: "block/plant",
-		walk: "walk/grass"
+    walk: "walk/grass",
+    hit: "block/plant"
 	},
 	combustibleProps: {
 		burnTemperature: 600,

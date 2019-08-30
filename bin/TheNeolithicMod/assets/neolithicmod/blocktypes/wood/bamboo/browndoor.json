@@ -131,8 +131,10 @@
 		burnDuration: 25,
 	},
 	sounds: {
-		"place": "block/planks",
-		"walk": "walk/wood"
+    "place": "game:block/planks",
+    "hit": "game:block/planks",
+    "break": "game:block/planks",
+		"walk": "game:walk/wood"
 	},
 	materialDensity: 600,
 	tpHandTransform: {

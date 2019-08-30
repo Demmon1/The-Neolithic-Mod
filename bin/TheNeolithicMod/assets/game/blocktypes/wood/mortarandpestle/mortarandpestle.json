@@ -21,8 +21,14 @@
 		debarked: {base: "block/wood/debarked/{wood}"},
 		trunk: {base: "game:block/wood/treetrunk/{wood}"}
 	},
-	sidesolid: {
-		all: false,
+  sidesolid: {
+    all: false,
+  },
+  sounds: {
+		"hit": "block/planks",
+		"break": "block/planks",
+		"place": "block/planks",
+		"walk": "walk/wood"
 	},
 	sideopaque: {
 		all: false,

@@ -49,12 +49,11 @@
 	resistance: 3,
 	lightAbsorption: 0,
 	sounds: {
-		"place": "block/planks",
-		"walk": "walk/wood"
+    "place": "game:block/planks",
+    "hit": "game:block/planks",
+    "break": "game:block/planks",
+		"walk": "game:walk/wood"
 	},
-
-	
-	
 	combustibleProps: {
 		burnTemperature: 600,
 		burnDuration: 10,

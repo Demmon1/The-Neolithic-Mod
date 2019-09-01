@@ -49,7 +49,7 @@
 	},
   resistance: 3,
   lightAbsorption: 0,
-  walkspeedmultiplier: 1.25,
+  walkspeedmultiplier: 1.2,
   sideopaque: {
     all: false
   },

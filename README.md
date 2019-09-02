@@ -16,7 +16,7 @@ Complete list of tweaks:
 
 -Restore vanilla stone path shape
 
--Reduce firewood crafting recipes to "Vanilla-like" scale (Obsolete)
+-Reduce firewood crafting recipes to "Vanilla-like" scale
 
 -Debuff "lump of fat" to give only 100 satiety
 

@@ -30,7 +30,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <RootNamespace>Neolithic</RootNamespace>
+    <RootNamespace>TheNeolithicMod</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Deploy|AnyCPU'">
     <OutputPath>bin\TheNeolithicMod\</OutputPath>
@@ -128,10 +128,19 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Neolithic\Content\Properties\SwapBlocks.cs" />
+    <Compile Include="Neolithic\Content\Block\BlockDryingStation.cs" />
+    <Compile Include="Neolithic\Content\Properties\CraftingProp.cs" />
+    <Compile Include="Neolithic\Content\Properties\AnimProps.cs" />
+    <Compile Include="Neolithic\Content\BlockEntity\BECraftingStation.cs" />
     <Compile Include="Neolithic\Content\BlockEntity\BEBucketOverride.cs" />
     <Compile Include="Neolithic\Content\Block Behavior\ChimneyBehavior.cs" />
     <Compile Include="Neolithic\Content\Block Behavior\BlockSwapBehavior.cs" />
+    <Compile Include="Neolithic\Content\Block\BlockCraftingStation.cs" />
     <Compile Include="Neolithic\Content\Block\BlockChandelierFix.cs" />
+    <Compile Include="Neolithic\Content\Utility\ShaderTest.cs" />
+    <Compile Include="Neolithic\Content\WorldGen\ModifyLakes.cs" />
+    <Compile Include="Neolithic\Systems\LootVesselFix.cs" />
     <Compile Include="Neolithic\Systems\Machines.cs" />
     <Compile Include="Neolithic\Content\BlockEntity\BlockEntityChimney.cs" />
     <Compile Include="Neolithic\Content\Block\BlockLooseStonesModified.cs" />
@@ -175,10 +184,13 @@
     <Compile Include="Neolithic\Systems\MetalWedge.cs" />
     <Compile Include="Neolithic\Systems\PalmTreeMod.cs" />
     <Compile Include="Neolithic\Systems\Remapper.cs" />
+    <Compile Include="Neolithic\Systems\ReturnBlockTest.cs" />
+    <Compile Include="Neolithic\Systems\UnderSeaWaterEffects.cs" />
     <Compile Include="Neolithic\TheNeolithicMod.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include=".vs\Neolithic\v15\" />
+    <Folder Include="bin\TheNeolithicMod\assets\game\recipes\barrel\" />
     <Folder Include="bin\TheNeolithicMod\assets\game\shapes\block\clay\flowerpot\" />
     <Folder Include="bin\TheNeolithicMod\assets\game\shapes\block\wood\" />
     <Folder Include="bin\TheNeolithicMod\assets\game\sounds\block\" />
@@ -188,7 +200,7 @@
     <Folder Include="Neolithic\Content\Entity\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="bin\CarryCapacity-0.4.3.zip" />
+    <None Include="bin\CarryCapacity-0.4.4.zip" />
     <None Include="bin\TheNeolithicMod\All about The Neolithic Mod.docx" />
     <None Include="bin\TheNeolithicMod\assets\game\blocktypes\cheesecloth.json" />
     <None Include="bin\TheNeolithicMod\assets\game\blocktypes\clay\bowl-fat.json" />
@@ -235,6 +247,7 @@
     <None Include="bin\TheNeolithicMod\assets\game\blocktypes\lightsources\sheet-lantern-glass.json" />
     <None Include="bin\TheNeolithicMod\assets\game\blocktypes\lightsources\sheet-lantern.json" />
     <None Include="bin\TheNeolithicMod\assets\game\blocktypes\metal\bowlstamp.json" />
+    <None Include="bin\TheNeolithicMod\assets\game\blocktypes\metal\chandelier.json" />
     <None Include="bin\TheNeolithicMod\assets\game\blocktypes\metal\glasslanternframe.json" />
     <None Include="bin\TheNeolithicMod\assets\game\blocktypes\metal\ingotstamp.json" />
     <None Include="bin\TheNeolithicMod\assets\game\blocktypes\metal\lantern-base-candle-sides-glass-layer.json" />
@@ -252,6 +265,7 @@
     <None Include="bin\TheNeolithicMod\assets\game\blocktypes\plant\giantreed-free.json" />
     <None Include="bin\TheNeolithicMod\assets\game\blocktypes\plant\giantreed-water.json" />
     <None Include="bin\TheNeolithicMod\assets\game\blocktypes\plant\plaintreesapling.json" />
+    <None Include="bin\TheNeolithicMod\assets\game\blocktypes\plant\seaweed.json" />
     <None Include="bin\TheNeolithicMod\assets\game\blocktypes\plant\sisal\sisal.json" />
     <None Include="bin\TheNeolithicMod\assets\game\blocktypes\soil\clay.json" />
     <None Include="bin\TheNeolithicMod\assets\game\blocktypes\stone\cobble\cobblestonestairs.json" />
@@ -301,6 +315,7 @@
     <None Include="bin\TheNeolithicMod\assets\game\blocktypes\tools\slaughteringaxe.json" />
     <None Include="bin\TheNeolithicMod\assets\game\blocktypes\tools\spear.json" />
     <None Include="bin\TheNeolithicMod\assets\game\blocktypes\tools\sword.json" />
+    <None Include="bin\TheNeolithicMod\assets\game\blocktypes\wax\bunchocandles.json" />
     <None Include="bin\TheNeolithicMod\assets\game\blocktypes\wood\generic\trough-large.json" />
     <None Include="bin\TheNeolithicMod\assets\game\blocktypes\wood\generic\trough-small.json" />
     <None Include="bin\TheNeolithicMod\assets\game\blocktypes\wood\leavesbranchy.json" />
@@ -357,6 +372,7 @@
     <None Include="bin\TheNeolithicMod\assets\game\itemtypes\resource\clay.json" />
     <None Include="bin\TheNeolithicMod\assets\game\itemtypes\resource\clayworkitem.json" />
     <None Include="bin\TheNeolithicMod\assets\game\itemtypes\resource\curdsportion.json" />
+    <None Include="bin\TheNeolithicMod\assets\game\itemtypes\resource\fat.json" />
     <None Include="bin\TheNeolithicMod\assets\game\itemtypes\resource\giantreedsroot.json" />
     <None Include="bin\TheNeolithicMod\assets\game\itemtypes\resource\ingot.json" />
     <None Include="bin\TheNeolithicMod\assets\game\itemtypes\resource\milkportion.json" />
@@ -859,7 +875,13 @@
     <None Include="bin\TheNeolithicMod\assets\game\worldgen\schematics\village\village-8.json" />
     <None Include="bin\TheNeolithicMod\assets\game\worldgen\schematics\village\village-9.json" />
     <None Include="bin\TheNeolithicMod\assets\game\worldgen\treengenproperties.json" />
+    <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\bag\backpack.json" />
+    <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\bag\bag-assembly.json" />
+    <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\bag\basket-frame.json" />
+    <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\bag\basket.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\bag\burdenbasket.json" />
+    <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\bag\linensack.json" />
+    <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\bag\miningbag.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\bone\skulls\skullboar.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\bone\skulls\skullewe.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\bone\skulls\skullhyena.json" />
@@ -910,7 +932,7 @@
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\plant\gate.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\plant\haybale.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\plant\wicker.json" />
-    <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\resources\cordage.json" />
+    <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\resource\cordage.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\rugs\bighornrug.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\rugs\boarrug.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\rugs\hyenarug.json" />
@@ -1279,24 +1301,6 @@
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\shapes\block\dead\wild-sheep\ram.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\shapes\block\dead\wolf\female.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\shapes\block\dead\wolf\male.json" />
-    <None Include="bin\TheNeolithicMod\assets\neolithicmod\shapes\block\door\bamboobrown\down_closed_left.json" />
-    <None Include="bin\TheNeolithicMod\assets\neolithicmod\shapes\block\door\bamboobrown\down_closed_right.json" />
-    <None Include="bin\TheNeolithicMod\assets\neolithicmod\shapes\block\door\bamboobrown\down_opened_left.json" />
-    <None Include="bin\TheNeolithicMod\assets\neolithicmod\shapes\block\door\bamboobrown\down_opened_right.json" />
-    <None Include="bin\TheNeolithicMod\assets\neolithicmod\shapes\block\door\bamboobrown\inventory.json" />
-    <None Include="bin\TheNeolithicMod\assets\neolithicmod\shapes\block\door\bamboobrown\up_closed_left.json" />
-    <None Include="bin\TheNeolithicMod\assets\neolithicmod\shapes\block\door\bamboobrown\up_closed_right.json" />
-    <None Include="bin\TheNeolithicMod\assets\neolithicmod\shapes\block\door\bamboobrown\up_opened_left.json" />
-    <None Include="bin\TheNeolithicMod\assets\neolithicmod\shapes\block\door\bamboobrown\up_opened_right.json" />
-    <None Include="bin\TheNeolithicMod\assets\neolithicmod\shapes\block\door\bamboogreen\down_closed_left.json" />
-    <None Include="bin\TheNeolithicMod\assets\neolithicmod\shapes\block\door\bamboogreen\down_closed_right.json" />
-    <None Include="bin\TheNeolithicMod\assets\neolithicmod\shapes\block\door\bamboogreen\down_opened_left.json" />
-    <None Include="bin\TheNeolithicMod\assets\neolithicmod\shapes\block\door\bamboogreen\down_opened_right.json" />
-    <None Include="bin\TheNeolithicMod\assets\neolithicmod\shapes\block\door\bamboogreen\inventory.json" />
-    <None Include="bin\TheNeolithicMod\assets\neolithicmod\shapes\block\door\bamboogreen\up_closed_left.json" />
-    <None Include="bin\TheNeolithicMod\assets\neolithicmod\shapes\block\door\bamboogreen\up_closed_right.json" />
-    <None Include="bin\TheNeolithicMod\assets\neolithicmod\shapes\block\door\bamboogreen\up_opened_left.json" />
-    <None Include="bin\TheNeolithicMod\assets\neolithicmod\shapes\block\door\bamboogreen\up_opened_right.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\shapes\block\floormats\pelt.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\shapes\block\floormats\peltsmall.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\shapes\block\floormats\rug.json" />

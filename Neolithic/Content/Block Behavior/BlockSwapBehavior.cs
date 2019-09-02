@@ -11,11 +11,12 @@ using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
+using Vintagestory.GameContent;
 
 namespace TheNeolithicMod
 {
     [ProtoContract(ImplicitFields = ImplicitFields.AllPublic)]
-    public class Swap
+    public class SwapMessage
     {
         public string SwapPairs;
     }
@@ -33,8 +34,8 @@ namespace TheNeolithicMod
         public override void StartClientSide(ICoreClientAPI api)
         {
             api.Network.RegisterChannel("swapPairs")
-                .RegisterMessageType<Swap>()
-                .SetMessageHandler<Swap>(a =>
+                .RegisterMessageType<SwapMessage>()
+                .SetMessageHandler<SwapMessage>(a =>
                 {
                     SwapPairs = JsonConvert.DeserializeObject<Dictionary<string, SwapBlocks>>(a.SwapPairs);
                 });
@@ -42,35 +43,16 @@ namespace TheNeolithicMod
 
         public override void StartServerSide(ICoreServerAPI api)
         {
-            sChannel = api.Network.RegisterChannel("swapPairs").RegisterMessageType<Swap>();
+            sChannel = api.Network.RegisterChannel("swapPairs").RegisterMessageType<SwapMessage>();
             api.Event.PlayerJoin += PlayerJoin;
         }
 
         private void PlayerJoin(IServerPlayer byPlayer)
         {
-            sChannel.SendPacket(new Swap() { SwapPairs = JsonConvert.SerializeObject(SwapPairs) }, byPlayer);
+            sChannel.SendPacket(new SwapMessage() { SwapPairs = JsonConvert.SerializeObject(SwapPairs) }, byPlayer);
         }
 
         public Dictionary<string, SwapBlocks> SwapPairs { get; set; } = new Dictionary<string, SwapBlocks>();
-    }
-
-    class SwapBlocks
-    {
-        public string Takes { get; set; } = "";
-        public string Makes { get; set; } = "";
-        public string Tool { get; set; } = null;
-        public int Count { get; set; } = 0;
-
-        public SwapBlocks(string takes, string makes, string tool, int count)
-        {
-            Takes = takes; Makes = makes; Tool = tool; Count = count;
-        }
-
-        public SwapBlocks Copy()
-        {
-            SwapBlocks copy = new SwapBlocks(Takes, Makes, Tool, Count);
-            return copy;
-        }
     }
 
     class BlockSwapBehavior : BlockBehavior
@@ -79,6 +61,7 @@ namespace TheNeolithicMod
         Vec3d particleOrigin = new Vec3d(0.5, 0.5, 0.5);
         bool requireSneak = false;
         bool disabled = false;
+        bool playSound = true;
         int pRadius = 2;
         int pQuantity = 16;
 
@@ -98,10 +81,12 @@ namespace TheNeolithicMod
             particleOrigin = properties["particleOrigin"].Exists ? properties["particleOrigin"].AsObject<Vec3d>() : particleOrigin;
             pRadius = properties["particleRadius"].AsInt(pRadius);
             pQuantity = properties["particleQuantity"].AsInt(pQuantity);
+            playSound = properties["playSound"].AsBool(true);
 
             if (properties["allowedVariants"].Exists)
             {
-                string[] allowed = properties["allowedVariants"].AsArray<string>();
+                string[] allowed = properties["allowedVariants"].AsArray<string>().WithDomain();
+
                 disabled = true;
                 if (allowed.Contains(block.Code.ToString()))
                 {
@@ -121,28 +106,26 @@ namespace TheNeolithicMod
 
                             if (val.Tool.Contains("*"))
                             {
-                                for (int i = 0; i < api.World.Blocks.Length; i++)
+                                for (int i = 0; i < api.World.Blocks.Count; i++)
                                 {
                                     Block iBlock = api.World.Blocks[i];
                                     if (iBlock != null && iBlock.WildCardMatch(new AssetLocation(val.Tool)))
                                     {
                                         SwapBlocks tmp = val.Copy();
-                                        string code = iBlock.Code.ToString().IndexOf(":") == -1 ? code = "game:" + iBlock.Code.ToString() : iBlock.Code.ToString();
-                                        tmp.Tool = code;
+                                        tmp.Tool = iBlock.Code.ToString();
                                         if (!swapSystem.SwapPairs.ContainsKey(GetKey(tmp.Tool)))
                                         {
                                             swapSystem.SwapPairs.Add(GetKey(tmp.Tool), tmp);
                                         }
                                     }
                                 }
-                                for (int i = 0; i < api.World.Items.Length; i++)
+                                for (int i = 0; i < api.World.Items.Count; i++)
                                 {
                                     Item iItem = api.World.Items[i];
                                     if (iItem != null && iItem.WildCardMatch(new AssetLocation(val.Tool)))
                                     {
                                         SwapBlocks tmp = val.Copy();
-                                        string code = iItem.Code.ToString().IndexOf(":") == -1 ? code = "game:" + iItem.Code.ToString() : iItem.Code.ToString();
-                                        tmp.Tool = code;
+                                        tmp.Tool = iItem.Code.ToString();
                                         if (!swapSystem.SwapPairs.ContainsKey(GetKey(tmp.Tool)))
                                         {
                                             swapSystem.SwapPairs.Add(GetKey(tmp.Tool), tmp);
@@ -172,16 +155,46 @@ namespace TheNeolithicMod
 
         public string GetKey(string holdingstack)
         {
-            return GameMath.Md5Hash(holdingstack + block.Code.ToString() + block.Id);
+            return holdingstack + block.Code.ToString() + block.Id;
         }
 
-        public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, ref EnumHandling handling)
+        public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, ref EnumHandling handled)
         {
-            if (disabled) return base.OnBlockInteractStart(world, byPlayer, blockSel, ref handling);
+            handled = EnumHandling.PreventDefault;
+            return true;
+        }
+
+        public override bool OnBlockInteractStep(float secondsUsed, IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, ref EnumHandling handled)
+        {
+            handled = EnumHandling.PreventDefault;
+            SwapSystem swapSystem = api.ModLoader.GetModSystem<SwapSystem>();
+            ItemSlot slot = byPlayer.InventoryManager.ActiveHotbarSlot;
+            string key = GetKey(slot.Itemstack.Collectible.Code.ToString());
+
+            ((byPlayer.Entity as EntityPlayer)?.Player as IClientPlayer)?.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
+            if (swapSystem.SwapPairs.TryGetValue(key, out SwapBlocks swap))
+            {
+                if (world.Side.IsClient() && secondsUsed != 0 && swap.MakeTime != 0)
+                {
+                    ((byPlayer.Entity as EntityPlayer)?.Player as IClientPlayer)?.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
+                    float animstep = (secondsUsed / swap.MakeTime) * 1.0f;
+                    api.ModLoader.GetModSystem<ShaderTest>().progressBar = animstep;
+                }
+                return secondsUsed < swap.MakeTime;
+            }
+            return false;
+        }
+
+        public override void OnBlockInteractStop(float secondsUsed, IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, ref EnumHandling handling)
+        {
+            BlockPos pos = blockSel.Position;
+            ModSystemBlockReinforcement bR = api.ModLoader.GetModSystem<ModSystemBlockReinforcement>();
+            if (disabled || bR.IsReinforced(pos) || bR.IsLocked(pos, byPlayer)) return;
+
             SwapSystem swapSystem = api.ModLoader.GetModSystem<SwapSystem>();
             handling = EnumHandling.PreventDefault;
             ItemSlot slot = byPlayer.InventoryManager.ActiveHotbarSlot;
-            BlockPos pos = blockSel.Position;
+
 
             if (!(requireSneak && !byPlayer.Entity.Controls.Sneak) && slot.Itemstack != null)
             {
@@ -189,16 +202,17 @@ namespace TheNeolithicMod
 
                 if (swapSystem.SwapPairs.TryGetValue(key, out SwapBlocks swap))
                 {
-                    if (swap.Takes != null && swap.Takes != block.Code.ToString())
+                    if (world.Side.IsClient()) api.ModLoader.GetModSystem<ShaderTest>().progressBar = 0;
+
+                    if (swap.Takes != null && swap.Takes != block.Code.ToString() || secondsUsed < swap.MakeTime)
                     {
-                        return true;
+                        return;
                     }
+
                     AssetLocation asset = slot.Itemstack.Collectible.Code;
                     if (asset.ToString() == swap.Tool)
                     {
-                        string toCode = swap.Makes;
-                        if (toCode.IndexOf(":") == -1) toCode = block.Code.Domain + ":" + toCode;
-                        AssetLocation toAsset = new AssetLocation(toCode);
+                        AssetLocation toAsset = new AssetLocation(swap.Makes.WithDomain());
                         Block toBlock = toAsset.GetBlock(world.Api);
 
                         int count = swap.Count;
@@ -218,17 +232,12 @@ namespace TheNeolithicMod
                             {
                                 if (byPlayer.WorldData.CurrentGameMode.IsSurvival()) slot.TakeOut(count);
                             }
-                            else return true;
+                            else return;
                         }
 
-                        ((byPlayer.Entity as EntityPlayer)?.Player as IClientPlayer)?.TriggerFpAnimation(EnumHandInteract.HeldItemInteract);
-
-                        if (block.EntityClass != null && toBlock.EntityClass != null)
+                        if ((block.EntityClass != null && toBlock.EntityClass != null) && (toBlock.EntityClass == block.EntityClass))
                         {
-                            if (toBlock.EntityClass == block.EntityClass)
-                            {
-                                world.BlockAccessor.ExchangeBlock(toBlock.BlockId, pos);
-                            }
+                            world.BlockAccessor.ExchangeBlock(toBlock.BlockId, pos);
                         }
                         else
                         {
@@ -239,7 +248,12 @@ namespace TheNeolithicMod
                     }
                 }
             }
-            return true;
+        }
+
+        public override bool OnBlockInteractCancel(float secondsUsed, IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, ref EnumHandling handled)
+        {
+            if (world.Side.IsClient()) api.ModLoader.GetModSystem<ShaderTest>().progressBar = 0;
+            return false;
         }
 
         public void PlaySoundDispenseParticles(IWorldAccessor world, BlockPos pos, ItemSlot slot)
@@ -250,7 +264,10 @@ namespace TheNeolithicMod
                 {
                     world.SpawnCubeParticles(pos, pos.ToVec3d().Add(particleOrigin), pRadius, pQuantity);
                     world.SpawnCubeParticles(pos.ToVec3d().Add(particleOrigin), slot.Itemstack, pRadius, pQuantity);
-                    world.PlaySoundAt(block.Sounds.Place, pos.X, pos.Y, pos.Z);
+                    if (playSound)
+                    {
+                        world.PlaySoundAt(block.Sounds.Place, pos.X, pos.Y, pos.Z);
+                    }
                 }
             }
             catch (Exception) { }

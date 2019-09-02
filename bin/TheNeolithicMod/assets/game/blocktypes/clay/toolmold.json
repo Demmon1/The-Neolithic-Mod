@@ -34,7 +34,7 @@
 			"drop": { type:"Block", code: "anvil-{metal}" }
 		},
 		"toolmold-*-burned-sword": {
-			"requiredUnits": 50,
+			"requiredUnits": 100,
 			"fillHeight": 1,
 			"drop": { type:"Item", code: "{tooltype}blade-{metal}" }
 		},

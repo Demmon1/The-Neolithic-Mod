@@ -5,7 +5,7 @@
 		{ loadFromProperties: "block/wood" },
 		{ code: "style", states: ["bark", "debarked"]},
 	],
-	creativeinventory: { "general": ["*"], "flora": ["*"], "construction": ["*"], "neolithicflora": ["*"] },
+	creativeinventory: { "general": [""],  "construction": [""], "neolithicdeco": [""] },
 	drawtype: "json",
 	lightabsorption: 0,
 	sidesolid: {
@@ -15,18 +15,13 @@
 	sideopaque: {
 		all: false
 	},
-	shapeByType: {
-	"branch-cross-very-thin-*-bark": {base: "block/wood/branch-cross"},
-	"branch-cross-very-thin-*-debarked": {base: "block/wood/branch-cross" }
-	 },
+	shape: { base: "block/wood/branch-cross"},	
 	blockmaterial: "Wood",
 	requiredMiningTier: 1,
-	texturesByType: {
-		"branch-*": {
-			"all": { base: "block/wood/{style}/{wood}" },
-			"acaciatop": { base: "block/wood/treetrunk/{wood}" }
+	textures: {	
+		"all": { base: "block/wood/{style}/{wood}" },
+		"acaciatop": { base: "block/wood/treetrunk/{wood}" },
 		},
-	},
 	replaceable: 500,
 	resistance: 4.5,
 	sounds: {

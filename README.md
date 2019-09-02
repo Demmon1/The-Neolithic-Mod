@@ -8,14 +8,15 @@ Complete list of tweaks:
 
 -Removed crafting recipe for "burden baskets".
 
--Primitive Fence Midsection recipe now uses "Very Thin" branches.
+-Primitive Fence Midsection recipe now uses "Very Thin" branches. (Obsolete)
 
 -Increase inventory size of bamboo chests to 24 (was 16).
 
--Restore vanilla ore deposit distribution.
+-Restore vanilla ore deposit distribution. (Obsolete)
 
 -Restore vanilla stone path shape
 
--Reduce firewood crafting recipes to "Vanilla-like" scale
+-Reduce firewood crafting recipes to "Vanilla-like" scale (Obsolete)
 
 -Debuff "lump of fat" to give only 100 satiety
+

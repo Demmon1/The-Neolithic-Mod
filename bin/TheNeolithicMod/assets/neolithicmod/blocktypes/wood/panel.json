@@ -1,107 +1,136 @@
 {
 	code: "panel",
-	class: "BlockLogWall",
-	behaviors: [
-		{
-			name: "OmniRotatable",
-			properties: {
-				"rotateH": true,
-				"rotateV": true,
-				"rotateV4": true,
-				"facing": "block",
-			}
-		}
-	],
+	class: "BlockSimpleCoating",	
 	attributes: {
 		handbook: {
-			groupBy: ["linen-*"],
+			groupBy: ["panel-*"],
 			
 		}
 	},
+	behaviorsByType: {
+		"*-debarked-*":[			
+			{
+				"name": "BlockCreateBehavior",
+				"properties": {
+					"createBlocks": [
+						{ "Takes": { "Code": "game:saw-*", "StackSize": 0 }, "Makes": [ { "Code": "neolithicmod:halfpanel-{wood}-{style}-east", "StackSize": 2 } ]},						
+					]
+				}
+			},
+			{name: "BlockSwapBehavior",
+			properties: {
+				"particleOrigin": {"X": 0.5,"Y":0.5,"Z": 0.5,},
+				"particleRadius": 2,
+				"particleQuantity": 16,
+				"swapBlocks": [
+				{ "Tool": "game:hinges-*", "Makes": "neolithicmod:door-assemble-{wood}-east", "Takes": null, "Count": 2 },
+				{ "Tool": "neolithicmod:branch-very-thin-*", "Makes": "neolithicmod:chest-frame-{wood}-east", "Takes": null, "Count": 4 },				
+				{ "Tool": "game:saw-*", "Makes": "game:air", "Takes": null, "Count": 0 },				
+				]}
+			}
+		],
+		"*-planks-*":[
+				{
+				"name": "BlockCreateBehavior",
+				"properties": {
+					"createBlocks": [
+						{ "Takes": { "Code": "game:saw-*", "StackSize": 0 }, "Makes": [ { "Code": "neolithicmod:halfpanel-{wood}-{style}-east", "StackSize": 2 } ]},						
+					]
+				}
+			},
+			{name: "BlockSwapBehavior",
+			properties: {
+				"particleOrigin": {"X": 0.5,"Y":0.5,"Z": 0.5,},
+				"particleRadius": 2,
+				"particleQuantity": 16,
+				"swapBlocks": [
+				{ "Tool": "game:saw-*", "Makes": "game:air", "Takes": null, "Count": 0 },
+				{ "Tool": "neolithicmod:halfpanel-{wood}-planks-*", "Makes": "game:dryingtraysides-{wood}", "Takes": null, "Count": 4 },
+				]}
+			}
+			],
+		"*":[
+			{
+				"name": "BlockCreateBehavior",
+				"properties": {
+					"createBlocks": [
+						{ "Takes": { "Code": "game:saw-*", "StackSize": 0 }, "Makes": [ { "Code": "neolithicmod:halfpanel-{wood}-{style}-east", "StackSize": 2 } ]},						
+					]
+				}
+			},
+			{name: "BlockSwapBehavior",
+			properties: {
+				"particleOrigin": {"X": 0.5,"Y":0.5,"Z": 0.5,},
+				"particleRadius": 2,
+				"particleQuantity": 16,
+				"swapBlocks": [
+				{ "Tool": "game:saw-*", "Makes": "game:air", "Takes": null, "Count": 0 },				
+				]}
+			}
+		]
+	},
 	variantgroups: [
-		{ loadFromProperties: "block/wood" },
+		{ code: "wood", states: ["aged"], loadFromProperties: "block/wood" },
 		{ code: "style", states: ["bark", "debarked", "planks"]},
-		{ code: "v", states: ["up", "left", "down", "right"] },
-		{ loadFromProperties: "abstract/horizontalorientation" }
+		{ code:"side", states: ["north", "east", "south", "west", "up", "down"] }
 	],
 	shapebytype: {
-		"*-up-north": { base: "game:block/basic/layered_0",  rotateY: 0, rotateZ: 0 },
-		"*-up-west": { base: "game:block/basic/layered_0",  rotateY: 90, rotateX: 0 },
-		"*-up-south": { base: "game:block/basic/layered_0",  rotateY: 180, rotateZ: 0 },
-		"*-up-east": { base: "game:block/basic/layered_0", rotateY: 270, rotateX: 0 },
-		
-		"*-left-north": { base: "game:block/basic/layered_0", rotateY: 0, rotateZ: 270 },
-		"*-left-west": { base: "game:block/basic/layered_0", rotateY: 90, rotateX: 90 },
-		"*-left-south": { base: "game:block/basic/layered_0", rotateY: 180, rotateZ: 90 },
-		"*-left-east": { base: "game:block/basic/layered_0" , rotateY: 270, rotateX: 90 },
-		
-		"*-down-north": { base: "game:block/basic/layered_0", rotateY: 0, rotateZ: 180 },
-		"*-down-west": { base: "game:block/basic/layered_0", rotateY: 90, rotateX: 180 },
-		"*-down-south": { base: "game:block/basic/layered_0", rotateY: 180, rotateZ: 180 },
-		"*-down-east": { base: "game:block/basic/layered_0", rotateY: 270, rotateX: 180 },
-		
-		"*-right-north": { base: "game:block/basic/layered_0", rotateY: 0, rotateZ: 90 },
-		"*-right-west": { base: "game:block/basic/layered_0", rotateY: 90, rotateX: 270 },
-		"*-right-south": { base: "game:block/basic/layered_0", rotateY: 180, rotateZ: 270 },
-		"*-right-east": { base: "game:block/basic/layered_0", rotateY: 270, rotateX: 270 },
-		},
-	sideopaque: { all: false },
-	sidesolid: { all: false },
-	blockmaterial: "Cloth",
-	creativeinventory: { "general": ["*-up-north"], "decorative": ["*-up-north"], "neolithicdeco": ["*-up-north"] },
-	replaceable: 700,
+		"*-down": { base: "game:block/basic/layered_0" },
+		"*-up": { base: "game:block/basic/layered_0", rotateX: 180 },
+		"*-north": { base: "game:block/basic/layered_0", rotateX: 90 },
+		"*-east": { base: "game:block/basic/layered_0", rotateX: 90, rotateY: 180, rotateZ: 270 },
+		"*-west": { base: "game:block/basic/layered_0", rotateX: 90, rotateY: 0, rotateZ: 270 },
+		"*-south": { base: "game:block/basic/layered_0", rotateX: 270 },
+	},
+	sidesolidByType: {
+		"*-down": { all: false, down: true },
+		"*-up": { all: false, up: true },
+		"*-north": { all: false, north: true },
+		"*-east": { all: false, east: true },
+		"*-west": { all: false, west: true },
+		"*-south": { all: false, south: true },
+	},
+	sideopaqueByType: {
+		"*-down": { all: false, down: true },
+		"*-up": { all: false, down: true },
+		"*-north": { all: false, north: true },
+		"*-east": { all: false, east: true },
+		"*-west": { all: false, west: true },
+		"*-south": { all: false, south: true },
+	},
+	blockmaterial: "Wood",
+	creativeinventory: { "general": ["*-east"], "decorative": ["*-east"], "neolithicdeco": ["*-east"] },
+	replaceable: 4000,
 	resistance: 1,
 	lightAbsorption: 1,
 	textures: {
 		all: { 
 			base: "game:block/wood/{style}/{wood}*"
 		}
-	},
+	},	
 	selectionbox: {
 		x1: 0, y1: 0, z1: 0, x2: 1, y2: 0.0625, z2: 1,
 		rotateXByType: {
-				"*-up-east": 0,
-				"*-left-east": 90,
-				"*-down-east": 180,
-				"*-right-east": 270,
-				"*-up-west": 0,
-				"*-left-west": 90,
-				"*-down-west": 180,
-				"*-right-west": 270,
-			},
+			"*-up": 180, "*-north": 90, "*-east": 90, "*-west": 90, "*-south": 270,
+		},
+		rotateYByType: {
+			"*-east": 180, "*-west": 0,
+		},
 		rotateZByType: {
-				"*-up-north": 0,
-				"*-left-north": 270,
-				"*-down-north": 180,
-				"*-right-north": 90,
-				"*-up-south": 0,
-				"*-left-south": 270,
-				"*-down-south": 180,
-				"*-right-south": 90,
-			}
+			"*-east": 270, "*-west": 270
+		}
 	},
 	collisionbox: {
 		x1: 0, y1: 0, z1: 0, x2: 1, y2: 0.0625, z2: 1,
 		rotateXByType: {
-				"*-up-east": 0,
-				"*-left-east": 90,
-				"*-down-east": 180,
-				"*-right-east": 270,
-				"*-up-west": 0,
-				"*-left-west": 90,
-				"*-down-west": 180,
-				"*-right-west": 270,
-			},
-			rotateZByType: {
-				"*-up-north": 0,
-				"*-left-north": 270,
-				"*-down-north": 180,
-				"*-right-north": 90,
-				"*-up-south": 0,
-				"*-left-south": 270,
-				"*-down-south": 180,
-				"*-right-south": 90,
-			}
+			"*-up": 180, "*-north": 90, "*-east": 90, "*-west": 90, "*-south": 270,
+		},
+		rotateYByType: {
+			"*-east": 180, "*-west": 0,
+		},
+		rotateZByType: {
+			"*-east": 270, "*-west": 270
+		}
 	},
 	combustibleProps: {
 		burnTemperature: 400,

@@ -1,6 +1,7 @@
 {
   code: "settinghammer",
   heldTpHitAnimation: "breaktool",
+  heldTpUseAnimation: "hoe",
   maxstacksize: 1,
   	variantgroups: [
 		{ code: "material", states: ["bismuthbronze", "blackbronze", "copper", "iron", "tinbronze" ] },

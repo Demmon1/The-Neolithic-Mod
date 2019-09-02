@@ -1,6 +1,7 @@
 {
   code: "tamper",
   heldTpHitAnimation: "breaktool",
+  heldTpUseAnimation: "tamper",
   maxstacksize: 1,
   	variantgroups: [
 		{ code: "material", states: ["wood", "bismuthbronze", "blackbronze", "copper", "iron", "tinbronze" ] },

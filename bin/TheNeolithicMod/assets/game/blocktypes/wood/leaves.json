@@ -1,0 +1,79 @@
+{
+	code: "leaves",
+	"__comment": "BlockLeaves contains some code for map color tinting and random testForDecay server block ticks",
+	class: "BlockLeaves",
+	behaviorsByType: {
+		"*-grown-*": [{name: "PushEventOnBlockBroken",	properties: {eventName: "testForDecay"}}]
+	},
+	attributes: {
+		handbook: {
+			groupBy: ["leaves-*"]
+		},
+	},
+	variantgroups: [
+		{ code: "type", states: ["grown", "placed"] },
+		{ loadFromProperties: "block/wood" }
+	],
+	creativeinventory: { "general": ["leaves-placed-*"], "flora": ["leaves-placed-*"] },
+	shape: { base: "block/basic/cube" },
+	renderpass: "OpaqueNoCull",
+	faceCullMode: "CollapseMaterial",
+	blockmaterial: "Leaves",
+	tintIndex: 1,
+	vertexFlags: {
+		zOffset: 4,
+		leavesWindWave: true
+	},
+	attributesByType: {
+		"leaves-grown-*": {
+			canDecay: true
+		}
+	},
+	textures: {
+		all: { base: "block/wood/leaves/{wood}*" },
+	},
+	sideopaque: {
+		all: false
+	},
+	sidesolid: {
+		all: false
+	},
+	snowCoverage: true,
+	replaceable: 4000,
+	lightAbsorption: 1,
+	resistance: 0.5,
+	collisionbox: null,
+	drops: [
+		{
+			type: "block",
+			code: "sapling-{wood}",
+			quantityByType: {
+				"*-pine": { avg: 0.05, var: 0 },
+				"*-acacia": { avg: 0.05, var: 0 },
+				"*": { avg: 0.02, var: 0 }
+			}
+		},
+		{
+			type: "item",
+			code: "stick",
+			quantity: { avg: 0.25, var: 0 },
+		}
+	],
+	sounds: {
+		break: "block/plant",
+		place: "block/plant",
+		hit: "block/plant",
+		walk: "walk/grass"
+	},
+	combustibleProps: {
+		burnTemperature: 600,
+		burnDuration: 10,
+	},
+	materialDensity: 300,
+	heldTpIdleAnimation: "holdbothhandslarge", heldTpUseAnimation: "twohandplaceblock",
+	tpHandTransform: {
+		translation: { x: -1.2, y: -1.1, z: -0.8 },
+		rotation: { x: -2, y: 25, z: -78 },
+		scale: 0.37
+	}
+}

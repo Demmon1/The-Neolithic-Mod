@@ -1,5 +1,6 @@
 {
-	ingredientPattern: "A	L",
+	enabled: false,
+  ingredientPattern: "A	L",
 	ingredients: {
 		"A": { type: "item", code: "game:axe-*", isTool: true  },
 		"L": { type: "block", code: "neolithicmod:branch-medium-*" }

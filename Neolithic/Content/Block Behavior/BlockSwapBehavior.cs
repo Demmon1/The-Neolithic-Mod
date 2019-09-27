@@ -13,7 +13,7 @@ using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.GameContent;
 
-namespace TheNeolithicMod
+namespace Neolithic
 {
     [ProtoContract(ImplicitFields = ImplicitFields.AllPublic)]
     public class SwapMessage
@@ -62,6 +62,7 @@ namespace TheNeolithicMod
         bool requireSneak = false;
         bool disabled = false;
         bool playSound = true;
+        bool allowPlaceOn = false;
         int pRadius = 2;
         int pQuantity = 16;
 
@@ -82,6 +83,7 @@ namespace TheNeolithicMod
             pRadius = properties["particleRadius"].AsInt(pRadius);
             pQuantity = properties["particleQuantity"].AsInt(pQuantity);
             playSound = properties["playSound"].AsBool(true);
+            allowPlaceOn = properties["allowPlaceOn"].AsBool(false);
 
             if (properties["allowedVariants"].Exists)
             {
@@ -109,19 +111,27 @@ namespace TheNeolithicMod
                             {
                                 SwapBlocks tmp = val.Copy();
 
-                                foreach (var block in api.World.Blocks.FindAll(a => a.WildCardMatch(new AssetLocation(val.Tool))))
+                                foreach (var block in api.World.Blocks)
                                 {
-                                    tmp.Tool = block.Code.ToString();
-                                    if (swapSystem.SwapPairs.ContainsKey(GetKey(val.Tool))) continue;
+                                    if (block.WildCardMatch(val.Tool))
+                                    {
+                                        tmp.Tool = block.Code.ToString();
+                                        string key = GetKey(tmp.Tool);
+                                        if (swapSystem.SwapPairs.ContainsKey(key)) continue;
 
-                                    swapSystem.SwapPairs.Add(GetKey(tmp.Tool), tmp);
+                                        swapSystem.SwapPairs.Add(key, tmp.Copy());
+                                    }
                                 }
-                                foreach (var item in api.World.Items.FindAll(a => a.WildCardMatch(new AssetLocation(val.Tool))))
+                                foreach (var item in api.World.Items)
                                 {
-                                    tmp.Tool = item.Code.ToString();
-                                    if (swapSystem.SwapPairs.ContainsKey(GetKey(val.Tool))) continue;
+                                    if (item.WildCardMatch(val.Tool))
+                                    {
+                                        tmp.Tool = item.Code.ToString();
+                                        string key = GetKey(tmp.Tool);
+                                        if (swapSystem.SwapPairs.ContainsKey(key)) continue;
 
-                                    swapSystem.SwapPairs.Add(GetKey(tmp.Tool), tmp);
+                                        swapSystem.SwapPairs.Add(key, tmp.Copy());
+                                    }
                                 }
                             }
                             else
@@ -144,10 +154,7 @@ namespace TheNeolithicMod
             }
         }
 
-        public string GetKey(string holdingstack)
-        {
-            return holdingstack + block.Code.ToString() + block.Id;
-        }
+        public string GetKey(string holdingstack) => holdingstack.Apd(block.Code.ToString());
 
         public override bool OnBlockInteractStart(IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, ref EnumHandling handled)
         {
@@ -179,7 +186,9 @@ namespace TheNeolithicMod
 
         public override void OnBlockInteractStop(float secondsUsed, IWorldAccessor world, IPlayer byPlayer, BlockSelection blockSel, ref EnumHandling handling)
         {
-            BlockPos pos = blockSel.Position;
+            BlockPos pos = blockSel?.Position;
+            if (pos == null) return;
+
             ModSystemBlockReinforcement bR = api.ModLoader.GetModSystem<ModSystemBlockReinforcement>();
             if (disabled || bR.IsReinforced(pos) || bR.IsLocked(pos, byPlayer)) return;
 
@@ -237,8 +246,24 @@ namespace TheNeolithicMod
                         }
                         slot.MarkDirty();
                         PlaySoundDispenseParticles(world, pos, slot);
+                        return;
                     }
                 }
+            }
+            
+            ItemStack stack = byPlayer?.InventoryManager?.ActiveHotbarSlot?.Itemstack;
+            if (stack != null && allowPlaceOn)
+            {
+                string r = "";
+                BlockSelection newsel = blockSel.Clone();
+                newsel.Position = newsel.Position.Offset(blockSel.Face);
+                Block block = stack.Block;
+
+                if (block != null && block.TryPlaceBlock(world, byPlayer, stack, newsel, ref r))
+                {
+                    world.PlaySoundAt(stack.Block?.Sounds.Place, newsel.Position);
+                }
+
             }
         }
 

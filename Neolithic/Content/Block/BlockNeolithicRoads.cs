@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Vintagestory.API.Client;
 using Vintagestory.API.Common;
 using Vintagestory.API.Common.Entities;
+using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 
-namespace TheNeolithicMod
+namespace Neolithic
 {
     class BlockNeolithicRoads : Block
     {
@@ -60,7 +62,8 @@ namespace TheNeolithicMod
 
                         world.PlaySoundAtWithDelay(nextBlock.Sounds.Place, blockSel.Position, 100);
                         world.PlaySoundAtWithDelay(new AssetLocation("sounds/effect/anvilhit"), blockSel.Position, 150);
-                        world.BlockAccessor.SetBlock(nextBlock.BlockId, blockSel.Position);
+                        world.BlockAccessor.ExchangeBlock(nextBlock.BlockId, blockSel.Position);
+                        slot.Itemstack.Collectible.DamageItem(world, byPlayer.Entity, slot);
                     }
                     return;
                 }
@@ -68,15 +71,22 @@ namespace TheNeolithicMod
         }
 
         public bool IsSettingHammer(ItemSlot slot) => slot.Itemstack.Collectible.FirstCodePart() == "settinghammer";
-
-        public override void OnBlockRemoved(IWorldAccessor world, BlockPos pos)
-        {
-            if (world.BlockAccessor.GetBlock(pos).Class != this.Class) base.OnBlockRemoved(world, pos);
-        }
     }
 
     class BENeolithicRoads : BlockEntity
     {
         public uint index = 0;
+
+        public override void ToTreeAttributes(ITreeAttribute tree)
+        {
+            tree.SetInt("roadindex", (int)index);
+            base.ToTreeAttributes(tree);
+        }
+
+        public override void FromTreeAtributes(ITreeAttribute tree, IWorldAccessor worldAccessForResolve)
+        {
+            index = (uint)tree.TryGetInt("roadindex");
+            base.FromTreeAtributes(tree, worldAccessForResolve);
+        }
     }
 }

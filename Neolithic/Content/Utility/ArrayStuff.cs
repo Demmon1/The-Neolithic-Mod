@@ -6,11 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Vintagestory.API.Client;
 using Vintagestory.API.Common;
+using Vintagestory.API.Common.Entities;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 using Vintagestory.GameContent;
 
-namespace TheNeolithicMod
+namespace Neolithic
 {
     public static class ArrayStuff
     {
@@ -161,6 +162,11 @@ namespace TheNeolithicMod
             return a + "-" + appended;
         }
 
+        public static string Apd(this string a, int appended)
+        {
+            return a + "-" + appended;
+        }
+
         public static void SpawnItemEntity(this IWorldAccessor world, ItemStack[] stacks, Vec3d pos, Vec3d velocity = null)
         {
             foreach (ItemStack stack in stacks)
@@ -220,6 +226,13 @@ namespace TheNeolithicMod
         {
             return manager.TryGiveItemstack(stacks.ResolvedStacks(manager.ActiveHotbarSlot.Inventory.Api.World));
         }
+
+        public static double DistanceTo(this SyncedEntityPos pos, Vec3d vec)
+        {
+            return Math.Sqrt(pos.SquareDistanceTo(vec));
+        }
+
+        public static bool WildCardMatch(this RegistryObject obj, string a) => obj.WildCardMatch(new AssetLocation(a));
 
         public static ItemStack[] ResolvedStacks(this JsonItemStack[] stacks, IWorldAccessor world)
         {

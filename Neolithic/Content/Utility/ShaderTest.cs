@@ -11,7 +11,7 @@ using Vintagestory.API.Datastructures;
 using Vintagestory.API.MathTools;
 using Vintagestory.API.Server;
 
-namespace TheNeolithicMod
+namespace Neolithic
 {
     public class ShaderTest : ModSystem
     {
@@ -211,7 +211,6 @@ namespace TheNeolithicMod
             Vec3f[] vec3s = shaderTest.vec3s;
             float[] floats = shaderTest.floats;
 
-            prog.Uniform("iUnderwater", capi.ModLoader.GetModSystem<UnderSeaWaterEffects>().activeColor);
             prog.Uniform("iTime", capi.World.ElapsedMilliseconds / 500f);
             prog.Uniform("iResolution", new Vec2f(capi.Render.FrameWidth, capi.Render.FrameHeight));
             prog.Uniform("iMouse", new Vec2f(capi.Input.MouseX, capi.Input.MouseY));

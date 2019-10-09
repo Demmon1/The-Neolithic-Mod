@@ -51,7 +51,7 @@ namespace Neolithic
         {
             api.RegisterItemClass("ItemSickle", typeof(ItemSickle));
             api.RegisterItemClass("ItemGiantReedsRoot", typeof(ItemGiantReedsRoot));
-            api.RegisterItemClass("ItemAdze", typeof(ItemAdze));
+            api.RegisterItemClass("ItemAdze", typeof(ItemAdze));            
             api.RegisterItemClass("ItemChisel", typeof(ItemChiselFix));
             api.RegisterItemClass("ItemSwapBlocks", typeof(ItemSwapBlocks));
             api.RegisterItemClass("ItemSlaughteringAxe", typeof(ItemSlaughteringAxe));
@@ -63,13 +63,13 @@ namespace Neolithic
             api.RegisterBlockClass("BlockMortarAndPestle", typeof(BlockMortarAndPestle));
             api.RegisterBlockClass("BlockCheeseCloth", typeof(BlockCheeseCloth));
             api.RegisterBlockClass("BlockNeolithicRoads", typeof(BlockNeolithicRoads));
-            api.RegisterBlockClass("BlockLooseStones", typeof(BlockLooseStonesModified));
+            api.RegisterBlockClass("BlockLooseStones", typeof(BlockLooseStonesModified)); //
             api.RegisterBlockClass("FixedStairs", typeof(FixedStairs));
             api.RegisterBlockClass("BlockChandelier", typeof(BlockChandelierFix));
-            api.RegisterBlockClass("BlockToolMold", typeof(BlockToolMoldReturnBlock));
+            api.RegisterBlockClass("BlockToolMold", typeof(BlockToolMoldReturnBlock)); //
             api.RegisterBlockClass("BlockCraftingStation", typeof(BlockCraftingStation));
             api.RegisterBlockClass("BlockDryingStation", typeof(BlockDryingStation));
-            api.RegisterBlockClass("BlockSeaweed", typeof(BlockSeaweedOverride));
+            api.RegisterBlockClass("BlockSeaweed", typeof(BlockSeaweedOverride)); //
             api.RegisterBlockClass("BlockPalmTree", typeof(BlockPalmTree));
         }
 

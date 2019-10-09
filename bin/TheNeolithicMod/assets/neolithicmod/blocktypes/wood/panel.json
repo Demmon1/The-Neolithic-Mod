@@ -4,70 +4,10 @@
 	attributes: {
 		handbook: {
 			groupBy: ["panel-*"],
-			
+			extraSections: [
+					{ title: "handbook-item-sources", text: "Use a saw to break a log, it will drop 4 barked panels and 4 debarked panels."}
+					]
 		}
-	},
-	behaviorsByType: {
-		"*-debarked-*":[			
-			{
-				"name": "BlockCreateBehavior",
-				"properties": {
-					"createBlocks": [
-						{ "Takes": { "Code": "game:saw-*", "StackSize": 0 }, "Makes": [ { "Code": "neolithicmod:halfpanel-{wood}-{style}-down", "StackSize": 2 } ]},						
-					]
-				}
-			},
-			{name: "BlockSwapBehavior",
-			properties: {
-				"particleOrigin": {"X": 0.5,"Y":0.5,"Z": 0.5,},
-				"particleRadius": 2,
-				"particleQuantity": 16,
-				"swapBlocks": [
-				{ "Tool": "game:hinges-*", "Makes": "neolithicmod:door-assemble-{wood}-east", "Takes": null, "Count": 2 },
-				{ "Tool": "neolithicmod:branch-very-thin-*", "Makes": "neolithicmod:chestframe-{wood}-east", "Takes": null, "Count": 4 },				
-				{ "Tool": "game:saw-*", "Makes": "game:air", "Takes": null, "Count": 0 },				
-				]}
-			}
-		],
-		"*-planks-*":[
-				{
-				"name": "BlockCreateBehavior",
-				"properties": {
-					"createBlocks": [
-						{ "Takes": { "Code": "game:saw-*", "StackSize": 0 }, "Makes": [ { "Code": "neolithicmod:halfpanel-{wood}-{style}-down", "StackSize": 2 } ]},						
-					]
-				}
-			},
-			{name: "BlockSwapBehavior",
-			properties: {
-				"particleOrigin": {"X": 0.5,"Y":0.5,"Z": 0.5,},
-				"particleRadius": 2,
-				"particleQuantity": 16,
-				"swapBlocks": [
-				{ "Tool": "game:saw-*", "Makes": "game:air", "Takes": null, "Count": 0 },
-				{ "Tool": "neolithicmod:halfpanel-{wood}-planks-*", "Makes": "game:dryingtraysides-{wood}", "Takes": null, "Count": 4 },
-				]}
-			}
-			],
-		"*":[
-			{
-				"name": "BlockCreateBehavior",
-				"properties": {
-					"createBlocks": [
-						{ "Takes": { "Code": "game:saw-*", "StackSize": 0 }, "Makes": [ { "Code": "neolithicmod:halfpanel-{wood}-{style}-down", "StackSize": 2 } ]},						
-					]
-				}
-			},
-			{name: "BlockSwapBehavior",
-			properties: {
-				"particleOrigin": {"X": 0.5,"Y":0.5,"Z": 0.5,},
-				"particleRadius": 2,
-				"particleQuantity": 16,
-				"swapBlocks": [
-				{ "Tool": "game:saw-*", "Makes": "game:air", "Takes": null, "Count": 0 },				
-				]}
-			}
-		]
 	},
 	variantgroups: [
 		{ code: "wood", states: ["aged"], loadFromProperties: "block/wood" },

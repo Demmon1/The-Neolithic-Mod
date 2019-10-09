@@ -68,6 +68,7 @@
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\Lib\Newtonsoft.Json.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="OpenTK">
       <HintPath>..\..\Lib\OpenTK.dll</HintPath>
@@ -139,7 +140,9 @@
     <Compile Include="Neolithic\Content\Block\BlockCraftingStation.cs" />
     <Compile Include="Neolithic\Content\Block\BlockChandelierFix.cs" />
     <Compile Include="Neolithic\Content\Utility\ShaderTest.cs" />
+    <Compile Include="Neolithic\Content\WorldGen\GenDeepOreBits.cs" />
     <Compile Include="Neolithic\Content\WorldGen\ModifyLakes.cs" />
+    <Compile Include="Neolithic\Systems\InWorldCraftingSystem.cs" />
     <Compile Include="Neolithic\Systems\LootVesselFix.cs" />
     <Compile Include="Neolithic\Content\BlockEntity\BlockEntityChimney.cs" />
     <Compile Include="Neolithic\Content\Block\BlockLooseStonesModified.cs" />
@@ -186,6 +189,7 @@
     <Folder Include="bin\TheNeolithicMod\assets\game\shapes\block\clay\flowerpot\" />
     <Folder Include="bin\TheNeolithicMod\assets\game\sounds\block\" />
     <Folder Include="bin\TheNeolithicMod\assets\game\sounds\creature\wolf\" />
+    <Folder Include="bin\TheNeolithicMod\assets\game\textures\gui\backgrounds\" />
     <Folder Include="bin\TheNeolithicMod\assets\neolithicmod\itemtypes\bag\" />
     <Folder Include="bin\TheNeolithicMod\assets\neolithicmod\shapes\entity\" />
     <Folder Include="Neolithic\Content\Entity\" />
@@ -995,8 +999,16 @@
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\stone\roads\3droad.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\wood\bamboo\browndoor.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\wood\bamboo\greendoor.json" />
+    <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\wood\branch-cordage.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\wood\branch-cross.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\wood\branch.json" />
+    <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\wood\chest\chest.json" />
+    <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\wood\chest\chestcomplete.json" />
+    <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\wood\chest\chestframe.json" />
+    <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\wood\chest\chestlatched.json" />
+    <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\wood\chest\chestsides.json" />
+    <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\wood\chest\labeledchest.json" />
+    <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\wood\chest\labeledchestcomplete.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\wood\doors\dooracacia.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\wood\doors\dooraged.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\wood\doors\doorbirch.json" />
@@ -1008,11 +1020,15 @@
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\wood\furniture\table.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\wood\generic\chest-labeled.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\wood\generic\chest.json" />
+    <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\wood\halflog.json" />
+    <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\wood\halfpanel.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\wood\lamppost\attachmenta.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\wood\lamppost\attachmentb.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\wood\lamppost\base.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\wood\lamppost\post.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\wood\logwall\logwall.json" />
+    <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\wood\panel-bamboo.json" />
+    <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\wood\panel.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\wood\planks-bamboo.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\wood\primitivefence.json" />
     <None Include="bin\TheNeolithicMod\assets\neolithicmod\blocktypes\wood\primitivegate.json" />
@@ -1903,14 +1919,6 @@
     <Content Include="bin\TheNeolithicMod\assets\game\textures\entity\wolf\silver.png" />
     <Content Include="bin\TheNeolithicMod\assets\game\textures\entity\wolf\smokegrey.png" />
     <Content Include="bin\TheNeolithicMod\assets\game\textures\entity\wolf\white.png" />
-    <Content Include="bin\TheNeolithicMod\assets\game\textures\gui\backgrounds\mainmenu1.png" />
-    <Content Include="bin\TheNeolithicMod\assets\game\textures\gui\backgrounds\mainmenu2.png" />
-    <Content Include="bin\TheNeolithicMod\assets\game\textures\gui\backgrounds\mainmenu3.png" />
-    <Content Include="bin\TheNeolithicMod\assets\game\textures\gui\backgrounds\mainmenu4.png" />
-    <Content Include="bin\TheNeolithicMod\assets\game\textures\gui\backgrounds\mainmenu5.png" />
-    <Content Include="bin\TheNeolithicMod\assets\game\textures\gui\backgrounds\mainmenu6.png" />
-    <Content Include="bin\TheNeolithicMod\assets\game\textures\gui\backgrounds\mainmenu7.png" />
-    <Content Include="bin\TheNeolithicMod\assets\game\textures\gui\backgrounds\mainmenu8.png" />
     <Content Include="bin\TheNeolithicMod\assets\game\textures\item\food\cookedgiantreedsroot.png" />
     <Content Include="bin\TheNeolithicMod\assets\game\textures\item\resource\clay\raw-blueclay.png" />
     <Content Include="bin\TheNeolithicMod\assets\game\textures\item\resource\clay\raw-brownclay.png" />

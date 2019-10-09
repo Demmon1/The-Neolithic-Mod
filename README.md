@@ -20,3 +20,4 @@ Complete list of tweaks:
 
 -Debuff "lump of fat" to give only 100 satiety
 
+-Restore vanilla saturation values

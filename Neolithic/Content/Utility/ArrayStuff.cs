@@ -15,15 +15,6 @@ namespace Neolithic
 {
     public static class ArrayStuff
     {
-        static readonly string[] woodtypes = new string[] {
-            "birch",
-            "oak",
-            "maple",
-            "pine",
-            "acacia",
-            "kapok",
-        };
-
         public static T Next<T>(this T[] array, ref uint index)
         {
             index = (uint)(++index % array.Length);
@@ -37,20 +28,6 @@ namespace Neolithic
         {
             index = index > 0 ? index - 1 : (uint)(array.Length-1);
             return array[index];
-        }
-
-        public static bool MatchingWood(this AssetLocation asset, ref string woodtype)
-        {
-            foreach (string a in woodtypes)
-            {
-                if (asset.ToString().Contains(a))
-                {
-                    woodtype = a;
-                    return true;
-                }
-            }
-            woodtype = null;
-            return false;
         }
 
         public static Block GetBlock(this BlockPos pos, IWorldAccessor world) { return world.BlockAccessor.GetBlock(pos); }
@@ -267,6 +244,21 @@ namespace Neolithic
             }
 
             return assets;
+        }
+
+        public static bool WildCardMatch(this AssetLocation asset, AssetLocation match, EnumItemClass itemClass, ICoreAPI api)
+        {
+            if (asset == null || match == null) return false;
+
+            if (itemClass == EnumItemClass.Item)
+            {
+                return asset.GetItem(api).WildCardMatch(match);
+            }
+            else if(itemClass == EnumItemClass.Block)
+            {
+                return asset.GetBlock(api).WildCardMatch(match);
+            }
+            return false;
         }
 
         public static bool IsBlock(this JsonItemStack stack) => stack.Type == EnumItemClass.Block;

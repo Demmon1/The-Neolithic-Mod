@@ -7,7 +7,7 @@
 		"Remove": true	
     },
     "Tool": {
-        "Code": "game:reeds",
+        "Code": "game:cattailtops",
         "Type": "Block",
 		"StackSize": 4		
     },
